@@ -1,10 +1,4 @@
-# 流体力学入門講義
-
-**— 自主ゼミ講義資料 —**
-
-*理論物理学・流体力学基礎*
-
----
+# 流体力学 1
 
 ## 目次
 
@@ -24,21 +18,25 @@
 
 流体力学では、連続体としての流体を記述するために二つの異なる座標系を用います。
 
-### ラグランジュ座標系（Lagrangian Description）
-
-**ラグランジュ座標** $\mathbf{X} = (X_1, X_2, X_3)$
-
-- 初期時刻 $t_0$ における流体粒子の位置を粒子のラベル（識別子）として用いる
-- 各流体粒子を個別に追跡する記述法
-- 粒子の軌跡： $\mathbf{x} = \mathbf{x}(\mathbf{X}, t)$
-
 ### オイラー座標系（Eulerian Description）
 
-**オイラー座標** $\mathbf{x} = (x_1, x_2, x_3)$
+- **独立変数** :  $\mathbf{x}, t$
+   - 空間上の固定された点で流体の状態を観測する。
 
-- 空間上の固定された観測点での流体の状態を記述
-- 各空間点での流体の物理量を時間の関数として表現
-- 速度場： $\mathbf{v} = \mathbf{v}(\mathbf{x}, t)$
+- **物理量$Q$の表現**
+  - 各空間固定点$\mathbf{x}$と時刻$t$の関数: $Q = Q(\mathbf{x}, t)$
+  - 固定された一点を流体が通り過ぎることで変化すると考える。
+
+### ラグランジュ座標系（Lagrangian Description）
+
+- **独立変数** $\mathbf{x}_0, t$
+   - 初期時刻 $t=0$ における流体粒子の位置$\mathbf{x}_0$に沿って流体の状態を観測する。
+
+- **物理量$Q$の表現**
+   - 初期座標$\mathbf{x}_0$と時刻$t$の関数: $Q = Q(\mathbf{x}, t) = Q(\mathbf{x}(\mathbf{x}_0, t), t)=\tilde{Q}(\mathbf{x}_0, t)$
+- 各流体粒子を個別に追跡する記述法
+
+
 
 ### 物理的解釈
 
@@ -51,10 +49,10 @@
 
 ラグランジュ座標とオイラー座標の関係：
 
-$$\mathbf{x} = \mathbf{x}(\mathbf{X}, t), \quad \mathbf{X} = \mathbf{X}(\mathbf{x}, t)$$
+$$\mathbf{x}_0 = \mathbf{x}_0(\mathbf{x}, t), \quad \mathbf{x} = \mathbf{x}(\mathbf{x}_0, t)$$
 
 ヤコビアン行列：
-$$J = \det\left(\frac{\partial \mathbf{x}}{\partial \mathbf{X}}\right) > 0$$
+$$J = \det\left(\frac{\partial \mathbf{x}_0}{\partial \mathbf{x}}\right) > 0$$
 
 物理的意味：$J$ は体積変化率を表す。
 
@@ -62,7 +60,7 @@ $$J = \det\left(\frac{\partial \mathbf{x}}{\partial \mathbf{X}}\right) > 0$$
 
 ## 2. ラグランジュ微分とオイラー微分
 
-流体中の任意のスカラー場 $\phi(\mathbf{x}, t)$（密度、温度、圧力など）について考える。
+流体中の任意のスカラー場 $\phi(\mathbf{x}_0, t)$（密度、温度、圧力など）について考える。
 
 ### 基本定義
 
@@ -73,7 +71,7 @@ $$\left.\frac{\partial \phi}{\partial t}\right|_{\mathbf{x}} = \frac{\partial \p
 - 「その場所で」の変化率
 
 **ラグランジュ微分**（物質微分、実質微分）：
-$$\frac{D\phi}{Dt} = \left.\frac{\partial \phi}{\partial t}\right|_{\mathbf{X}}$$
+$$\frac{D\phi}{Dt} = \left.\frac{\partial \phi}{\partial t}\right|_{\mathbf{x}_0}$$
 
 - 流体粒子に追随して観測される変化
 - 「粒子について」の変化率
@@ -82,9 +80,9 @@ $$\frac{D\phi}{Dt} = \left.\frac{\partial \phi}{\partial t}\right|_{\mathbf{X}}$
 
 連鎖律を適用して：
 
-$$\frac{D\phi}{Dt} = \frac{\partial \phi}{\partial t} + \frac{\partial \phi}{\partial x_i}\frac{\partial x_i}{\partial t}$$
+$$\frac{D\phi}{Dt} = \frac{\partial \phi}{\partial t} + \frac{\partial \phi}{\partial x_{0i}}\frac{\partial x_{0i}}{\partial t}$$
 
-ここで、$\frac{\partial x_i}{\partial t} = v_i$ は速度成分なので：
+ここで、$\frac{\partial x_{0i}}{\partial t} = v_i$ は速度成分なので：
 
 $$\boxed{\frac{D\phi}{Dt} = \frac{\partial \phi}{\partial t} + \mathbf{v} \cdot \nabla \phi}$$
 
@@ -94,12 +92,12 @@ $$\boxed{\frac{D\phi}{Dt} = \frac{\partial \phi}{\partial t} + \mathbf{v} \cdot 
 
 ### 2.2 速度のラグランジュ微分
 
-速度場 $\mathbf{v}(\mathbf{x}, t)$ の物質微分は加速度を与える：
+速度場 $\mathbf{v}(\mathbf{x}_0, t)$ の物質微分は加速度を与える：
 
 $$\boxed{\frac{D\mathbf{v}}{Dt} = \frac{\partial \mathbf{v}}{\partial t} + (\mathbf{v} \cdot \nabla)\mathbf{v}}$$
 
 成分表示：
-$$\frac{Dv_i}{Dt} = \frac{\partial v_i}{\partial t} + v_j \frac{\partial v_i}{\partial x_j}$$
+$$\frac{Dv_i}{Dt} = \frac{\partial v_i}{\partial t} + v_j \frac{\partial v_i}{\partial x_{0j}}$$
 
 物理的意味：
 - $\frac{\partial \mathbf{v}}{\partial t}$：**局所加速度**（その場での速度変化）
@@ -115,14 +113,14 @@ $$\frac{Dv_i}{Dt} = \frac{\partial v_i}{\partial t} + v_j \frac{\partial v_i}{\p
 
 | 概念 | 定義 | 数学的表現 | 物理的意味 |
 |------|------|------------|------------|
-| **流線** (Streamline) | ある瞬間における速度場に接線を持つ曲線 | $\frac{d\mathbf{x}}{ds} \parallel \mathbf{v}(\mathbf{x}, t)$ | 「今この瞬間」の流れの向き |
-| **パスライン** (Pathline) | 個々の粒子の軌跡 | $\frac{d\mathbf{x}}{dt} = \mathbf{v}(\mathbf{x}, t)$ | 粒子が実際に通る道筋 |
+| **流線** (Streamline) | ある瞬間における速度場に接線を持つ曲線 | $\frac{d\mathbf{x}_0}{ds} \parallel \mathbf{v}(\mathbf{x}_0, t)$ | 「今この瞬間」の流れの向き |
+| **パスライン** (Pathline) | 個々の粒子の軌跡 | $\frac{d\mathbf{x}_0}{dt} = \mathbf{v}(\mathbf{x}_0, t)$ | 粒子が実際に通る道筋 |
 | **ストリークライン** (Streakline) | 同一点から放出された粒子群の線 | 染色実験で観察される線 | 可視化で見える流れの筋 |
 
 ### 流線の微分方程式
 
 流線上で：
-$$\frac{dx_1}{v_1} = \frac{dx_2}{v_2} = \frac{dx_3}{v_3} = ds$$
+$$\frac{dx_{01}}{v_1} = \frac{dx_{02}}{v_2} = \frac{dx_{03}}{v_3} = ds$$
 
 ここで $ds$ は流線に沿った弧長要素。
 
@@ -245,7 +243,7 @@ $$\frac{1}{2}v^2 + \frac{p}{\rho} + \Phi = \text{const}$$
 $$\boldsymbol{\sigma}_{ij} = -p\delta_{ij} + \tau_{ij}$$
 
 粘性応力テンソル：
-$$\tau_{ij} = \mu \left(\frac{\partial v_i}{\partial x_j} + \frac{\partial v_j}{\partial x_i}\right) + \lambda \delta_{ij} \frac{\partial v_k}{\partial x_k}$$
+$$\tau_{ij} = \mu \left(\frac{\partial v_i}{\partial x_{0j}} + \frac{\partial v_j}{\partial x_{0i}}\right) + \lambda \delta_{ij} \frac{\partial v_k}{\partial x_{0k}}$$
 
 ここで：
 - $\mu$：剪断粘性係数
@@ -262,7 +260,7 @@ $\nabla \cdot \mathbf{v} = 0$ より：
 $$\boxed{\rho \frac{D\mathbf{v}}{Dt} = -\nabla p + \mu \nabla^2 \mathbf{v} + \rho \mathbf{f}}$$
 
 成分形：
-$$\rho\left(\frac{\partial v_i}{\partial t} + v_j \frac{\partial v_i}{\partial x_j}\right) = -\frac{\partial p}{\partial x_i} + \mu \frac{\partial^2 v_i}{\partial x_j \partial x_j} + \rho f_i$$
+$$\rho\left(\frac{\partial v_i}{\partial t} + v_j \frac{\partial v_i}{\partial x_{0j}}\right) = -\frac{\partial p}{\partial x_{0i}} + \mu \frac{\partial^2 v_i}{\partial x_{0j} \partial x_{0j}} + \rho f_i$$
 
 ### 無次元化とレイノルズ数
 
@@ -276,7 +274,7 @@ $$Re = \frac{\rho U L}{\mu} = \frac{\text{慣性力}}{\text{粘性力}}$$
 
 ## まとめ
 
-### 基本方程式系
+### 基本方程式
 
 1. **連続方程式**：
    $$\frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \mathbf{v}) = 0$$
@@ -287,21 +285,13 @@ $$Re = \frac{\rho U L}{\mu} = \frac{\text{慣性力}}{\text{粘性力}}$$
 3. **状態方程式** (必要に応じて)：
    $$p = p(\rho, T)$$
 
-### 物理的洞察
+### 大事なこと
 
-- **物質微分** $\frac{D}{Dt}$ は流体粒子の追跡を可能にする
-- **非線形項** $(\mathbf{v} \cdot \nabla)\mathbf{v}$ が流体力学の豊かな現象を生む
-- **レイノルズ数**が流れの性質を決定する無次元パラメータ
+- **ラグランジュ微分** $\frac{D}{Dt}$ は流体粒子に沿った状態の変化を記述する。
+- **オイラー微分** $\frac{\partial \rho}{\partial t}$(普通の時間に対する偏微分)は空間固定点を流体が通り過ぎることによる状態の変化を記述する。
+- **レイノルズ数**が同じ流体同士は相似関係となる。
 
-### 今後の発展
+### 次回
 
-1. **境界層理論**（プラントル理論）
-2. **乱流理論**（コルモゴロフ理論）
-3. **圧縮性流体**（気体力学）
-4. **数値流体力学**（CFD）
-
----
-
-*この講義資料は流体力学の基礎を理論物理学の観点から体系的にまとめたものです。各方程式の導出過程と物理的意味を理解することで、より高度な流体現象の解析への道筋が開かれます。*
-
-**次回予告**: 境界層理論とナビエ・ストークス方程式の近似解法 
+- 渦の定義
+- 流れ関数の定義
