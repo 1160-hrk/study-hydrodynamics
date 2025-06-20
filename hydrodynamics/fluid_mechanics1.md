@@ -21,7 +21,7 @@
 ### オイラー座標系（Eulerian Description）
 
 - **独立変数** :  $\mathbf{x}, t$
-   - 空間上の固定された点で流体の状態を観測する。
+   - 常に空間上の固定された点で流体の状態を観測する。
 
 - **物理量$Q$の表現**
   - 各空間固定点$\mathbf{x}$と時刻$t$の関数: $Q = Q(\mathbf{x}, t)$
@@ -30,7 +30,7 @@
 ### ラグランジュ座標系（Lagrangian Description）
 
 - **独立変数** $\mathbf{x}_0, t$
-   - 初期時刻 $t=0$ における流体粒子の位置$\mathbf{x}_0$に沿って流体の状態を観測する。
+   - 初期時刻 $t=0$ に位置$\mathbf{x}_0$にいた流体粒子の移動に沿って流体の状態を観測する。
 
 - **物理量$Q$の表現**
    - 初期座標$\mathbf{x}_0$と時刻$t$の関数: $Q = Q(\mathbf{x}, t) = Q(\mathbf{x}(\mathbf{x}_0, t), t)=\tilde{Q}(\mathbf{x}_0, t)$
@@ -78,32 +78,32 @@ $$\frac{D\phi}{Dt} = \left.\frac{\partial \phi}{\partial t}\right|_{\mathbf{x}_0
 
 ### 2.1 物理量のラグランジュ微分
 
-連鎖律を適用して：
+チェーンルールを適用して：
 
-$$\frac{D\phi}{Dt} = \frac{\partial \phi}{\partial t} + \frac{\partial \phi}{\partial x_{0i}}\frac{\partial x_{0i}}{\partial t}$$
+$$\frac{D\phi}{Dt} = \frac{\partial \phi}{\partial t} + \frac{\partial \phi}{\partial x_{i}}\frac{\partial x_{i}}{\partial t}$$
 
-ここで、$\frac{\partial x_{0i}}{\partial t} = v_i$ は速度成分なので：
+ここで、$\frac{\partial x_{i}}{\partial t} = u_i$ は速度成分なので：
 
-$$\boxed{\frac{D\phi}{Dt} = \frac{\partial \phi}{\partial t} + \mathbf{v} \cdot \nabla \phi}$$
+$$\boxed{\frac{D\phi}{Dt} = \frac{\partial \phi}{\partial t} + \mathbf{u} \cdot \nabla \phi}$$
 
 各項の物理的意味：
 - $\frac{\partial \phi}{\partial t}$：**局所変化項**（その場での変化）
-- $\mathbf{v} \cdot \nabla \phi$：**移流項**（流れによる輸送効果）
+- $\mathbf{u} \cdot \nabla \phi$：**移流項**（流れによる輸送効果）
 
 ### 2.2 速度のラグランジュ微分
 
-速度場 $\mathbf{v}(\mathbf{x}_0, t)$ の物質微分は加速度を与える：
+速度場 $\mathbf{u}(\mathbf{x}_0, t)$ の物質微分は加速度を与える：
 
-$$\boxed{\frac{D\mathbf{v}}{Dt} = \frac{\partial \mathbf{v}}{\partial t} + (\mathbf{v} \cdot \nabla)\mathbf{v}}$$
+$$\boxed{\frac{D\mathbf{u}}{Dt} = \frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla)\mathbf{u}}$$
 
 成分表示：
-$$\frac{Dv_i}{Dt} = \frac{\partial v_i}{\partial t} + v_j \frac{\partial v_i}{\partial x_{0j}}$$
+$$\frac{Du_i}{Dt} = \frac{\partial u_i}{\partial t} + u_j \frac{\partial u_i}{\partial x_{0j}}$$
 
 物理的意味：
-- $\frac{\partial \mathbf{v}}{\partial t}$：**局所加速度**（その場での速度変化）
-- $(\mathbf{v} \cdot \nabla)\mathbf{v}$：**移流加速度**（流れの空間変化による加速度）
+- $\frac{\partial \mathbf{u}}{\partial t}$：**局所加速度**（その場での速度変化）
+- $(\mathbf{u} \cdot \nabla)\mathbf{u}$：**移流加速度**（流れの空間変化による加速度）
 
-> **重要な注意**: 移流項 $(\mathbf{v} \cdot \nabla)\mathbf{v}$ は非線形項であり、流体力学の本質的な複雑さの源です。
+> **重要**: 移流項 $(\mathbf{u} \cdot \nabla)\mathbf{u}$ は非線形項であり、流体力学の複雑さの源です。
 
 ---
 
@@ -113,24 +113,24 @@ $$\frac{Dv_i}{Dt} = \frac{\partial v_i}{\partial t} + v_j \frac{\partial v_i}{\p
 
 | 概念 | 定義 | 数学的表現 | 物理的意味 |
 |------|------|------------|------------|
-| **流線** (Streamline) | ある瞬間における速度場に接線を持つ曲線 | $\frac{d\mathbf{x}_0}{ds} \parallel \mathbf{v}(\mathbf{x}_0, t)$ | 「今この瞬間」の流れの向き |
-| **パスライン** (Pathline) | 個々の粒子の軌跡 | $\frac{d\mathbf{x}_0}{dt} = \mathbf{v}(\mathbf{x}_0, t)$ | 粒子が実際に通る道筋 |
+| **流線** (Streamline) | ある瞬間における速度場に接線を持つ曲線 | $\frac{d\mathbf{x}_0}{ds} \parallel \mathbf{u}(\mathbf{x}_0, t)$ | 「今この瞬間」の流れの向き |
+| **パスライン** (Pathline) | 個々の粒子の軌跡 | $\frac{d\mathbf{x}_0}{dt} = \mathbf{u}(\mathbf{x}_0, t)$ | 粒子が実際に通る道筋 |
 | **ストリークライン** (Streakline) | 同一点から放出された粒子群の線 | 染色実験で観察される線 | 可視化で見える流れの筋 |
 
 ### 流線の微分方程式
 
 流線上で：
-$$\frac{dx_{01}}{v_1} = \frac{dx_{02}}{v_2} = \frac{dx_{03}}{v_3} = ds$$
+$$\frac{dx_{01}}{u_1} = \frac{dx_{02}}{u_2} = \frac{dx_{03}}{u_3} = ds$$
 
 ここで $ds$ は流線に沿った弧長要素。
 
 ### 流量の定義
 
 **体積流量** $Q$：
-$$Q = \iint_S \mathbf{v} \cdot \mathbf{n} \, dS$$
+$$Q = \iint_S \mathbf{u} \cdot \mathbf{n} \, dS$$
 
 **質量流量** $\dot{m}$：
-$$\dot{m} = \iint_S \rho \mathbf{v} \cdot \mathbf{n} \, dS$$
+$$\dot{m} = \iint_S \rho \mathbf{u} \cdot \mathbf{n} \, dS$$
 
 ここで：
 - $S$：流れを横切る任意の面
@@ -142,10 +142,10 @@ $$\dot{m} = \iint_S \rho \mathbf{v} \cdot \mathbf{n} \, dS$$
 **流管**：流線で構成された管状の領域
 
 流管内での質量保存：
-$$\rho_1 A_1 v_1 = \rho_2 A_2 v_2 = \text{一定}$$
+$$\rho_1 A_1 u_1 = \rho_2 A_2 u_2 = \text{一定}$$
 
 非圧縮流体では：
-$$A_1 v_1 = A_2 v_2 = \text{一定}$$
+$$A_1 u_1 = A_2 u_2 = \text{一定}$$
 
 ---
 
@@ -163,32 +163,32 @@ $$\frac{d}{dt}\int_{V(t)} \rho \, dV = 0$$
 
 可動体積における任意の物理量 $\phi$ の時間変化：
 
-$$\frac{d}{dt}\int_{V(t)} \phi \, dV = \int_{V(t)} \frac{\partial \phi}{\partial t} dV + \oint_{\partial V(t)} \phi \mathbf{v} \cdot \mathbf{n} \, dS$$
+$$\frac{d}{dt}\int_{V(t)} \phi \, dV = \int_{V(t)} \frac{\partial \phi}{\partial t} dV + \oint_{\partial V(t)} \phi \mathbf{u} \cdot \mathbf{n} \, dS$$
 
 ### 連続方程式の導出
 
 1. レイノルズ輸送定理を密度 $\rho$ に適用：
-   $$\frac{d}{dt}\int_{V(t)} \rho \, dV = \int_{V(t)} \frac{\partial \rho}{\partial t} dV + \oint_{\partial V(t)} \rho \mathbf{v} \cdot \mathbf{n} \, dS$$
+   $$\frac{d}{dt}\int_{V(t)} \rho \, dV = \int_{V(t)} \frac{\partial \rho}{\partial t} dV + \oint_{\partial V(t)} \rho \mathbf{u} \cdot \mathbf{n} \, dS$$
 
 2. ガウスの発散定理を適用：
-   $$\oint_{\partial V(t)} \rho \mathbf{v} \cdot \mathbf{n} \, dS = \int_{V(t)} \nabla \cdot (\rho \mathbf{v}) \, dV$$
+   $$\oint_{\partial V(t)} \rho \mathbf{u} \cdot \mathbf{n} \, dS = \int_{V(t)} \nabla \cdot (\rho \mathbf{u}) \, dV$$
 
 3. 質量保存則より：
-   $$\int_{V(t)} \left[\frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \mathbf{v})\right] dV = 0$$
+   $$\int_{V(t)} \left[\frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \mathbf{u})\right] dV = 0$$
 
 4. 体積 $V(t)$ は任意なので、被積分関数がゼロ：
 
-$$\boxed{\frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \mathbf{v}) = 0}$$
+$$\boxed{\frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \mathbf{u}) = 0}$$
 
 これが**連続方程式**（質量保存の微分形）です。
 
 ### 特殊な場合
 
 **非圧縮流体** ($\rho = \text{const}$)：
-$$\boxed{\nabla \cdot \mathbf{v} = 0}$$
+$$\boxed{\nabla \cdot \mathbf{u} = 0}$$
 
 **物質微分形**：
-$$\frac{D\rho}{Dt} + \rho \nabla \cdot \mathbf{v} = 0$$
+$$\frac{D\rho}{Dt} + \rho \nabla \cdot \mathbf{u} = 0$$
 
 ---
 
@@ -210,7 +210,7 @@ $$\frac{D\rho}{Dt} + \rho \nabla \cdot \mathbf{v} = 0$$
 ### ニュートンの第2法則
 
 流体要素について：
-$$\rho \frac{D\mathbf{v}}{Dt} = \nabla \cdot \boldsymbol{\sigma} + \rho \mathbf{f}$$
+$$\rho \frac{D\mathbf{u}}{Dt} = \nabla \cdot \boldsymbol{\sigma} + \rho \mathbf{f}$$
 
 ### 5.1 完全流体（オイラー方程式）
 
@@ -223,17 +223,17 @@ $$\boldsymbol{\sigma}_{ij} = -p \delta_{ij}$$
 $$\nabla \cdot \boldsymbol{\sigma} = -\nabla p$$
 
 **オイラー方程式**：
-$$\boxed{\rho \frac{D\mathbf{v}}{Dt} = -\nabla p + \rho \mathbf{f}}$$
+$$\boxed{\rho \frac{D\mathbf{u}}{Dt} = -\nabla p + \rho \mathbf{f}}$$
 
 展開形：
-$$\rho\left(\frac{\partial \mathbf{v}}{\partial t} + (\mathbf{v} \cdot \nabla)\mathbf{v}\right) = -\nabla p + \rho \mathbf{f}$$
+$$\rho\left(\frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla)\mathbf{u}\right) = -\nabla p + \rho \mathbf{f}$$
 
 ### ベルヌーイの定理への道筋
 
-定常流れ（$\frac{\partial \mathbf{v}}{\partial t} = 0$）で、保存力のみの場合（$\mathbf{f} = -\nabla \Phi$）：
+定常流れ（$\frac{\partial \mathbf{u}}{\partial t} = 0$）で、保存力のみの場合（$\mathbf{f} = -\nabla \Phi$）：
 
 流線に沿って：
-$$\frac{1}{2}v^2 + \frac{p}{\rho} + \Phi = \text{const}$$
+$$\frac{1}{2}u^2 + \frac{p}{\rho} + \Phi = \text{const}$$
 
 ### 5.2 粘性流体（ナビエ・ストークス方程式）
 
@@ -243,7 +243,7 @@ $$\frac{1}{2}v^2 + \frac{p}{\rho} + \Phi = \text{const}$$
 $$\boldsymbol{\sigma}_{ij} = -p\delta_{ij} + \tau_{ij}$$
 
 粘性応力テンソル：
-$$\tau_{ij} = \mu \left(\frac{\partial v_i}{\partial x_{0j}} + \frac{\partial v_j}{\partial x_{0i}}\right) + \lambda \delta_{ij} \frac{\partial v_k}{\partial x_{0k}}$$
+$$\tau_{ij} = \mu \left(\frac{\partial u_i}{\partial x_{0j}} + \frac{\partial u_j}{\partial x_{0i}}\right) + \lambda \delta_{ij} \frac{\partial u_k}{\partial x_{0k}}$$
 
 ここで：
 - $\mu$：剪断粘性係数
@@ -251,16 +251,16 @@ $$\tau_{ij} = \mu \left(\frac{\partial v_i}{\partial x_{0j}} + \frac{\partial v_
 
 ### 一般的なナビエ・ストークス方程式
 
-$$\boxed{\rho \frac{D\mathbf{v}}{Dt} = -\nabla p + \mu \nabla^2 \mathbf{v} + (\mu + \lambda)\nabla(\nabla \cdot \mathbf{v}) + \rho \mathbf{f}}$$
+$$\boxed{\rho \frac{D\mathbf{u}}{Dt} = -\nabla p + \mu \nabla^2 \mathbf{u} + (\mu + \lambda)\nabla(\nabla \cdot \mathbf{u}) + \rho \mathbf{f}}$$
 
 ### 非圧縮流体の場合
 
-$\nabla \cdot \mathbf{v} = 0$ より：
+$\nabla \cdot \mathbf{u} = 0$ より：
 
-$$\boxed{\rho \frac{D\mathbf{v}}{Dt} = -\nabla p + \mu \nabla^2 \mathbf{v} + \rho \mathbf{f}}$$
+$$\boxed{\rho \frac{D\mathbf{u}}{Dt} = -\nabla p + \mu \nabla^2 \mathbf{u} + \rho \mathbf{f}}$$
 
 成分形：
-$$\rho\left(\frac{\partial v_i}{\partial t} + v_j \frac{\partial v_i}{\partial x_{0j}}\right) = -\frac{\partial p}{\partial x_{0i}} + \mu \frac{\partial^2 v_i}{\partial x_{0j} \partial x_{0j}} + \rho f_i$$
+$$\rho\left(\frac{\partial u_i}{\partial t} + u_j \frac{\partial u_i}{\partial x_{0j}}\right) = -\frac{\partial p}{\partial x_{0i}} + \mu \frac{\partial^2 u_i}{\partial x_{0j} \partial x_{0j}} + \rho f_i$$
 
 ### 無次元化とレイノルズ数
 
@@ -277,10 +277,10 @@ $$Re = \frac{\rho U L}{\mu} = \frac{\text{慣性力}}{\text{粘性力}}$$
 ### 基本方程式
 
 1. **連続方程式**：
-   $$\frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \mathbf{v}) = 0$$
+   $$\frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \mathbf{u}) = 0$$
 
 2. **ナビエ・ストークス方程式**：
-   $$\rho \frac{D\mathbf{v}}{Dt} = -\nabla p + \mu \nabla^2 \mathbf{v} + (\mu + \lambda)\nabla(\nabla \cdot \mathbf{v}) + \rho \mathbf{f}$$
+   $$\rho \frac{D\mathbf{u}}{Dt} = -\nabla p + \mu \nabla^2 \mathbf{u} + (\mu + \lambda)\nabla(\nabla \cdot \mathbf{u}) + \rho \mathbf{f}$$
 
 3. **状態方程式** (必要に応じて)：
    $$p = p(\rho, T)$$
